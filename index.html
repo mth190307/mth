@@ -206,5 +206,26 @@ window.addEventListener("resize",()=>{
 });
 </script>
 
+<audio id="bgMusic" autoplay loop >
+    <source src="music.mp3">
+</audio>
+
+<script>
+window.addEventListener("load", function() {
+    const music = document.getElementById("bgMusic");
+
+    // thử bỏ mute và phát lại
+    music.muted = false;
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            // nếu bị chặn thì vẫn giữ nguyên (trình duyệt yêu cầu tương tác)
+        });
+    }
+});
+</script>
+
 </body>
 </html>
+
