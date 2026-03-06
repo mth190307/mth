@@ -13,7 +13,6 @@
   --sage:#9CAF88;
   --pink:#f8c8dc;
   --cream:#fdf6ee;
-  --text:#333;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -24,7 +23,7 @@ body{
   overflow-x:hidden;
 }
 
-/* ===== INTRO ===== */
+/* INTRO */
 .intro{
   position:fixed;
   inset:0;
@@ -49,9 +48,10 @@ body{
   background:rgba(255,255,255,.25);
   box-shadow:0 8px 20px rgba(0,0,0,.08);
   cursor:pointer;
+  font-size:16px;
 }
 
-/* ===== MAIN ===== */
+/* MAIN */
 .main{
   opacity:0;
   transition:opacity 1s ease;
@@ -68,7 +68,7 @@ h1{
   margin-bottom:30px;
 }
 
-/* ===== POLAROID ===== */
+/* POLAROID */
 .gallery{
   display:flex;
   flex-wrap:wrap;
@@ -79,31 +79,25 @@ h1{
 
 .polaroid{
   background:#fff;
-  padding:8px 8px 20px 8px;
+  padding:8px 8px 20px;
   width:42%;
   max-width:220px;
   box-shadow:0 6px 15px rgba(0,0,0,.12);
   transform:rotate(-2deg);
-  transition:transform .3s ease;
-  will-change:transform;
+  transition:.3s;
 }
 
 .polaroid:nth-child(even){
   transform:rotate(3deg);
 }
 
-.polaroid:hover{
-  transform:scale(1.04);
-}
-
 .polaroid img{
   width:100%;
-  height:240px;
+  height:220px;
   object-fit:cover;
-  display:block;
 }
 
-/* ===== MESSAGE ===== */
+/* MESSAGE */
 .message-box{
   max-width:680px;
   margin:auto;
@@ -117,7 +111,7 @@ h1{
   min-height:120px;
 }
 
-/* ===== PETALS ===== */
+/* PETAL */
 .petal{
   position:fixed;
   top:-20px;
@@ -127,12 +121,11 @@ h1{
   border-radius:50%;
   pointer-events:none;
   animation:fall linear forwards;
-  will-change:transform;
 }
 
 @keyframes fall{
   to{
-    transform:translate3d(0,100vh,0) rotate(360deg);
+    transform:translateY(100vh) rotate(360deg);
   }
 }
 
@@ -144,134 +137,130 @@ h1{
 
 <body>
 
+<!-- INTRO -->
 <div class="intro" id="intro">
-  <button class="open-btn" id="openBtn">
-    Cậu có một món quà, mở ra nhé!
-  </button>
+<button class="open-btn" id="openBtn">
+Cậu có một món quà, mở ra nhé!
+</button>
 </div>
 
-<audio id="bgMusic" loop preload="none">
-  <!-- THAY LINK NHẠC MP3 TẠI ĐÂY -->
-  <source src="your-music.mp3" type="audio/mpeg">
+<!-- NHẠC NỀN -->
+<audio id="bgMusic" loop>
+<!-- THAY LINK NHẠC MP3 TẠI ĐÂY -->
+<source src="music.mp3" type="audio/mpeg">
 </audio>
 
+<!-- MAIN -->
 <div class="main" id="mainContent">
 
-  <h1>Gửi <!-- THAY TÊN TẠI ĐÂY --> My Friend 💐</h1>
+<h1>Gửi <!-- THAY TÊN TẠI ĐÂY --> Vân Ánh 💐</h1>
 
-  <div class="gallery">
-    <!-- THAY LINK ẢNH TẠI ĐÂY -->
-    <div class="polaroid"><img loading="lazy" src="vananh.png"></div>
-  </div>
+<div class="gallery">
 
-  <div class="message-box" id="typewriter"></div>
+<!-- THAY LINK ẢNH TẠI ĐÂY -->
+<div class="polaroid">
+<img loading="lazy" src="vananh.png">
+</div>
+
+</div>
+
+<div class="message-box" id="typewriter"></div>
+
 </div>
 
 <script>
+
 const intro = document.getElementById("intro");
 const openBtn = document.getElementById("openBtn");
 const mainContent = document.getElementById("mainContent");
 const music = document.getElementById("bgMusic");
 const typewriterEl = document.getElementById("typewriter");
 
-// SỬA LỜI CHÚC TẠI ĐÂY
+/* SỬA LỜI CHÚC TẠI ĐÂY */
 const message = `
 Chúc Vân Ánh một ngày 8/3 thật rực rỡ.
 
 Cảm ơn vì đã luôn đồng hành,
 vừa dịu dàng vừa mạnh mẽ theo cách rất riêng.
 
-Mong Vân Ánh luôn tự tin, được yêu thương
-và sống đúng với phiên bản tuyệt nhất của mình nhé :3
+Mong Vân Ánh luôn tự tin,
+được yêu thương
+và sống đúng với phiên bản tuyệt nhất của mình.
 `;
 
-// ===== TYPEWRITER (TỐI ƯU) =====
+/* TYPEWRITER */
 function typeWriter(text, element){
-  let i = 0;
-  function typing(){
-    if(i < text.length){
-      element.textContent += text[i++];
-      requestAnimationFrame(typing);
-    }
-  }
-  typing();
+let i=0;
+function typing(){
+if(i<text.length){
+element.textContent+=text[i];
+i++;
+setTimeout(typing,35);
+}
+}
+typing();
 }
 
-// ===== CONFETTI TỐI ƯU =====
+/* CONFETTI */
 function launchConfetti(){
-  const duration = 1200;
-  const end = Date.now() + duration;
 
-  (function frame(){
-    confetti({
-      particleCount:20,
-      spread:60,
-      origin:{x:Math.random()}
-    });
-    if(Date.now() < end){
-      requestAnimationFrame(frame);
-    }
-  })();
+const duration=1200;
+const end=Date.now()+duration;
+
+(function frame(){
+
+confetti({
+particleCount:18,
+spread:60,
+origin:{x:Math.random()}
+});
+
+if(Date.now()<end){
+requestAnimationFrame(frame);
 }
 
-// ===== PETAL SYSTEM GIỚI HẠN =====
+})();
+
+}
+
+/* PETAL */
 let petalInterval;
-const maxPetals = navigator.hardwareConcurrency <= 4 ? 8 : 15;
 
 function createPetal(){
-  if(document.querySelectorAll(".petal").length > maxPetals) return;
 
-  const petal = document.createElement("div");
-  petal.className="petal";
-  petal.style.left = Math.random()*100+"vw";
-  petal.style.animationDuration = (6+Math.random()*4)+"s";
-  document.body.appendChild(petal);
+const petal=document.createElement("div");
 
-  setTimeout(()=>petal.remove(),10000);
+petal.className="petal";
+petal.style.left=Math.random()*100+"vw";
+petal.style.animationDuration=(6+Math.random()*4)+"s";
+
+document.body.appendChild(petal);
+
+setTimeout(()=>petal.remove(),10000);
+
 }
 
-// Dừng khi tab ẩn
-document.addEventListener("visibilitychange",()=>{
-  if(document.hidden){
-    clearInterval(petalInterval);
-  }else{
-    petalInterval = setInterval(createPetal,700);
-  }
-});
-
+/* CLICK MỞ QUÀ */
 openBtn.addEventListener("click",()=>{
-  intro.classList.add("hidden");
-  mainContent.classList.add("show");
 
-  music.play();
-  launchConfetti();
-  typeWriter(message,typewriterEl);
+intro.classList.add("hidden");
+mainContent.classList.add("show");
 
-  petalInterval = setInterval(createPetal,700);
-});
+/* phát nhạc */
+music.play();
 
-const music = document.getElementById("bgMusic");
-const openBtn = document.getElementById("openBtn");
+/* confetti */
+launchConfetti();
 
-openBtn.addEventListener("click", function () {
+/* chữ chạy */
+typeWriter(message,typewriterEl);
 
-  // phát nhạc
-  music.play();
-
-  // các hiệu ứng khác của trang
-  intro.classList.add("hidden");
-  mainContent.classList.add("show");
+/* hoa rơi */
+petalInterval=setInterval(createPetal,700);
 
 });
-  
+
 </script>
-
-<audio id="bgMusic" loop>
-  <!-- THAY LINK NHẠC MP3 TẠI ĐÂY -->
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
 
 </body>
 </html>
-
-
